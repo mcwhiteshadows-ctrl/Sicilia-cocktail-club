@@ -70,13 +70,17 @@
     .field-note{font-size:0.72rem;color:var(--muted);margin-top:4px;}
 
     /* DATES GRID */
-    .dates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:6px;}
-    .date-chip{background:rgba(26,30,18,0.7);border:1px solid rgba(120,142,85,0.25);border-radius:6px;padding:10px 12px;cursor:pointer;transition:all 0.2s;text-align:center;}
-    .date-chip:hover{border-color:var(--green);}
-    .date-chip.selected{background:rgba(120,142,85,0.2);border-color:var(--green);color:var(--green-light);}
+    .dates-grid{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
+    .date-chip{background:rgba(26,30,18,0.7);border:1px solid rgba(120,142,85,0.25);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;}
+    .date-chip:hover{border-color:var(--green);background:rgba(120,142,85,0.08);}
+    .date-chip.selected{background:rgba(120,142,85,0.18);border-color:var(--green);}
     .date-chip.disabled{opacity:0.3;cursor:not-allowed;pointer-events:none;}
-    .date-chip-date{font-size:0.82rem;font-weight:500;color:var(--text);}
-    .date-chip-time{font-size:0.72rem;color:var(--muted);margin-top:2px;}
+    .date-chip-icon{font-size:1.6rem;flex-shrink:0;}
+    .date-chip-info{flex:1;}
+    .date-chip-date{font-size:0.9rem;font-weight:600;color:var(--text);}
+    .date-chip-time{font-size:0.78rem;color:var(--green-light);margin-top:2px;letter-spacing:0.03em;}
+    .date-chip-location{font-size:0.75rem;color:var(--muted);margin-top:3px;}
+    .date-chip-badge{font-size:0.65rem;background:rgba(238,190,44,0.15);border:1px solid rgba(238,190,44,0.3);color:var(--gold);border-radius:10px;padding:2px 8px;white-space:nowrap;}
     .no-dates{text-align:center;padding:24px;color:var(--muted);font-size:0.85rem;border:1px dashed rgba(120,142,85,0.2);border-radius:8px;}
 
     /* SUBMIT */
@@ -115,11 +119,16 @@
     .admin-export-btn{background:#2a4a2a;border:1px solid #4a7a4a;color:#7fba7f;border-radius:6px;padding:12px;font-family:'Jost',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;width:100%;margin-top:8px;}
 
     /* DATES ADMIN */
-    .dates-admin-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
-    .date-admin-row{display:flex;align-items:center;gap:8px;background:#0d0d0d;border:1px solid #2a2e20;border-radius:6px;padding:8px 10px;}
-    .date-admin-row input{background:transparent;border:none;color:#f0ece4;font-family:'Jost',sans-serif;font-size:0.82rem;outline:none;flex:1;}
-    .date-del{background:transparent;border:none;color:#8a3030;font-size:1rem;cursor:pointer;padding:0 4px;}
-    .date-add-btn{background:transparent;border:1px dashed rgba(120,142,85,0.4);color:var(--green-light);border-radius:6px;padding:8px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;width:100%;margin-top:6px;transition:background 0.2s;}
+    .dates-admin-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+    .date-admin-row{background:#0d0d0d;border:1px solid #2a2e20;border-radius:8px;padding:12px;}
+    .date-admin-row-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+    .date-admin-row-loc{margin-bottom:6px;}
+    .date-admin-input{background:#1a1a1a;border:1px solid #2e2a22;border-radius:5px;padding:7px 10px;color:#f0ece4;font-family:'Jost',sans-serif;font-size:0.82rem;outline:none;width:100%;}
+    .date-admin-input:focus{border-color:var(--green);}
+    .date-admin-label{font-size:0.65rem;color:#8a8070;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;}
+    .date-del{background:transparent;border:1px solid #3a2020;color:#8a3030;border-radius:4px;padding:4px 10px;font-size:0.75rem;cursor:pointer;width:100%;}
+    .date-del:hover{background:#2a1010;}
+    .date-add-btn{background:transparent;border:1px dashed rgba(120,142,85,0.4);color:var(--green-light);border-radius:6px;padding:10px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;width:100%;margin-top:6px;transition:background 0.2s;}
     .date-add-btn:hover{background:rgba(120,142,85,0.1);}
 
     /* PWD */
@@ -355,22 +364,41 @@ function buildPersoneSelect(){
   }
 }
 
+function formatDate(dateStr){
+  if(!dateStr) return '';
+  const parts = dateStr.split('-');
+  if(parts.length!==3) return dateStr;
+  const months=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+  const d=parseInt(parts[0]),m=parseInt(parts[1])-1,y=parts[2];
+  return d+' '+months[m]+' ''+y;
+}
+
 function buildDatesGrid(){
   const grid=document.getElementById('datesGrid');
-  if(!config.dates||!config.dates.length){
+  const events=(config.dates||[]).filter(e=>e.data);
+  if(!events.length){
     grid.innerHTML='<div class="no-dates">Nessuna data disponibile al momento.<br>Contattaci direttamente.</div>';
     return;
   }
-  grid.innerHTML=config.dates.map((d,i)=>`
-    <div class="date-chip${selectedDate===d?' selected':''}" onclick="selectDate('${d}',this)">
-      <div class="date-chip-date">${d.split('·')[0]||d}</div>
-      <div class="date-chip-time">${d.split('·')[1]||''}</div>
-    </div>`).join('');
+  grid.innerHTML=events.map((ev,i)=>{
+    const key=JSON.stringify(ev);
+    const sel=selectedDate===key;
+    return `<div class="date-chip${sel?' selected':''}" onclick="selectDate(${i},this)">
+      <div class="date-chip-icon">🗓</div>
+      <div class="date-chip-info">
+        <div class="date-chip-date">${formatDate(ev.data)}</div>
+        <div class="date-chip-time">ore ${ev.ora||'--'}</div>
+        <div class="date-chip-location">📍 ${ev.location||''}</div>
+      </div>
+      <div class="date-chip-badge">Disponibile</div>
+    </div>`;
+  }).join('');
 }
 
-function selectDate(d,el){
-  selectedDate=d;
-  document.getElementById('fDate').value=d;
+function selectDate(i,el){
+  const ev=config.dates[i];
+  selectedDate=JSON.stringify(ev);
+  document.getElementById('fDate').value=formatDate(ev.data)+' ore '+ev.ora+' — '+ev.location;
   document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
 }
@@ -437,16 +465,29 @@ function openAdmin(){
 }
 
 function buildAdminDates(){
-  document.getElementById('adminDatesList').innerHTML=(config.dates||[]).map((d,i)=>`
+  document.getElementById('adminDatesList').innerHTML=(config.dates||[]).map((ev,i)=>`
     <div class="date-admin-row">
-      <input value="${d}" oninput="config.dates[${i}]=this.value" placeholder="Sab 15 Mar · 18:00">
-      <button class="date-del" onclick="removeDate(${i})">🗑</button>
+      <div class="date-admin-row-fields">
+        <div>
+          <div class="date-admin-label">Data (gg-mm-aa)</div>
+          <input class="date-admin-input" value="${ev.data||''}" placeholder="15-06-26" oninput="config.dates[${i}].data=this.value">
+        </div>
+        <div>
+          <div class="date-admin-label">Orario</div>
+          <input class="date-admin-input" value="${ev.ora||''}" placeholder="18:00" oninput="config.dates[${i}].ora=this.value">
+        </div>
+      </div>
+      <div class="date-admin-row-loc">
+        <div class="date-admin-label">Location</div>
+        <input class="date-admin-input" value="${ev.location||''}" placeholder="Es: Villa Tasca, Palermo" oninput="config.dates[${i}].location=this.value">
+      </div>
+      <button class="date-del" onclick="removeDate(${i})">🗑 Elimina evento</button>
     </div>`).join('');
 }
 
 function addDateRow(){
   if(!config.dates) config.dates=[];
-  config.dates.push('');
+  config.dates.push({data:'',ora:'',location:''});
   buildAdminDates();
 }
 
@@ -463,7 +504,7 @@ function saveAdmin(){
   config.maxPersone=parseInt(document.getElementById('aMaxPersone').value)||6;
   config.minPersone=parseInt(document.getElementById('aMinPersone').value)||3;
   config.email=document.getElementById('aEmail').value;
-  config.dates=config.dates.filter(d=>d.trim());
+  config.dates=(config.dates||[]).filter(e=>e.data&&e.data.trim());
   try{localStorage.setItem('scc_masterclass',JSON.stringify(config));}catch(e){}
   applyConfig();
   document.getElementById('adminOverlay').classList.remove('open');
