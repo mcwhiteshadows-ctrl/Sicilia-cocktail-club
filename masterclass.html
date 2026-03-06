@@ -159,7 +159,7 @@
   <div class="hero-inner">
     <div class="hero-tag" id="heroTag">Master Class · Gin Siciliano</div>
     <h1 class="hero-title">Un'esperienza <em id="heroEm">unica</em></h1>
-    <p class="hero-sub" id="heroSub">Scopri, degusta, crea — in piccoli gruppi esclusivi</p>
+    <p class="hero-sub" id="heroSub">Scopri, degusta, crea - in piccoli gruppi esclusivi</p>
     <div class="divider"></div>
     <p class="hero-desc" id="heroDesc">Il <strong>Sicilian Cocktail Club</strong> offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per <strong>piccoli gruppi</strong>, con un massimo di <strong id="heroMax">6 persone</strong> al momento. Se siete un gruppo più numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.</p>
     <div class="badges">
@@ -275,7 +275,7 @@
         </div>
         <div class="admin-field">
           <span class="admin-label">Descrizione</span>
-          <textarea class="admin-textarea" id="aHeroDesc">Il Sicilian Cocktail Club offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per piccoli gruppi, con un massimo di 6 persone al momento. Se siete un gruppo più numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.</textarea>
+          <textarea class="admin-textarea" id="aHeroDesc">Il Sicilian Cocktail Club offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per piccoli gruppi, con un massimo di 6 persone al momento. Se siete un gruppo piu numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.</textarea>
         </div>
       </div>
 
@@ -322,8 +322,8 @@ const SHEETS_URL='https://script.google.com/macros/s/AKfycbyHO_lLdpCwOvFkhx0x0Zm
 let config={
   heroTag:'Master Class · Gin Siciliano',
   heroEm:'unica',
-  heroSub:'Scopri, degusta, crea — in piccoli gruppi esclusivi',
-  heroDesc:'Il Sicilian Cocktail Club offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per piccoli gruppi, con un massimo di 6 persone al momento. Se siete un gruppo più numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.',
+  heroSub:'Scopri, degusta, crea - in piccoli gruppi esclusivi',
+  heroDesc:'Il Sicilian Cocktail Club offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per piccoli gruppi, con un massimo di 6 persone al momento. Se siete un gruppo piu numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.',
   maxPersone:6, minPersone:3,
   dates:[],
   email:'siciliancocktailclub@gmail.com'
@@ -355,7 +355,7 @@ function applyConfig(){
 function buildPersoneSelect(){
   const sel=document.getElementById('fPersone');
   const cur=sel.value;
-  sel.innerHTML='<option value="">— scegli —</option>';
+  sel.innerHTML='<option value="">-- scegli --</option>';
   for(let i=config.minPersone;i<=config.maxPersone;i++){
     const o=document.createElement('option');
     o.value=i; o.textContent=i+' persone';
@@ -398,7 +398,7 @@ function buildDatesGrid(){
 function selectDate(i,el){
   const ev=config.dates[i];
   selectedDate=JSON.stringify(ev);
-  document.getElementById('fDate').value=formatDate(ev.data)+' ore '+ev.ora+' — '+ev.location;
+  document.getElementById('fDate').value=formatDate(ev.data)+' ore '+ev.ora+' - '+ev.location;
   document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
 }
