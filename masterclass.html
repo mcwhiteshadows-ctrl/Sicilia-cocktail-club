@@ -62,7 +62,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
 .submit-btn:hover{opacity:0.9;}
 .submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
 /* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
 .modal-overlay.open{display:flex;}
 .modal-box{background:var(--dark2);border:1px solid rgba(120,142,85,0.3);border-radius:12px;padding:36px 28px;max-width:400px;width:100%;text-align:center;}
 .modal-icon{font-size:2.8rem;margin-bottom:14px;}
@@ -247,7 +247,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
   </div>
 </div>
 
-<div class="admin-trigger" onclick="adminTap()"></div>
+<div class="admin-trigger" onclick="adminTap()" ontouchstart="adminTap()"></div>
 <div class="toast" id="toast"></div>
 
 <script>
