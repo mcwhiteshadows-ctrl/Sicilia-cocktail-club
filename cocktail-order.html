@@ -149,7 +149,11 @@ textarea.form-input{resize:vertical;min-height:58px;}
 .chip{background:var(--dark3);border:1px solid #2e2a22;border-radius:20px;padding:5px 12px;font-size:0.75rem;color:var(--muted);cursor:pointer;transition:all 0.2s;}
 .chip:hover{border-color:var(--gold);}.chip.off{background:#2a0a0a;border-color:#5a1a1a;color:#e06060;}
 /* ADMIN COCKTAIL LIST */
-.admin-cocktail-item{border:1px solid #2a2720;border-radius:6px;margin-bottom:8px;overflow:hidden;}
+.admin-cocktail-item{border:1px solid #2a2720;border-radius:6px;margin-bottom:8px;overflow:hidden;transition:opacity 0.2s;}
+.admin-cocktail-item.dragging{opacity:0.4;border-color:var(--gold);}
+.admin-cocktail-item.drag-over{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);}
+.drag-handle{cursor:grab;color:var(--muted);font-size:0.9rem;padding:0 4px;line-height:1;user-select:none;flex-shrink:0;}
+.drag-handle:active{cursor:grabbing;}
 .admin-cocktail-item:last-child{margin-bottom:0;}
 .admin-cocktail-header{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;background:var(--dark3);cursor:pointer;user-select:none;gap:10px;}
 .admin-cocktail-header:hover{background:#2a2720;}
@@ -598,9 +602,10 @@ function buildAdminPayments(){
 function buildAdminCocktails(){
   const cats=['Classici','Aperitivi','Signature'];
   document.getElementById('adminCocktailList').innerHTML=cocktails.map((c,i)=>`
-    <div class="admin-cocktail-item" id="aci-${i}">
+    <div class="admin-cocktail-item" id="aci-${i}" draggable="true">
       <div class="admin-cocktail-header" onclick="toggleCocktailEditor(${i})">
         <div class="admin-cocktail-title">
+          <span class="drag-handle" onclick="event.stopPropagation()" title="Trascina per riordinare">⠿</span>
           <span>${c.emoji}</span>
           <span>${c.name}</span>
           <span style="font-size:0.72rem;color:var(--muted)">${c.cat}</span>
@@ -652,6 +657,43 @@ function buildAdminCocktails(){
       </div>
     </div>
   `).join('');
+  initDragDrop();
+}
+
+// ── DRAG & DROP RIORDINO ──
+function initDragDrop(){
+  const list=document.getElementById('adminCocktailList');
+  let dragSrc=null;
+  list.querySelectorAll('.admin-cocktail-item').forEach(item=>{
+    item.addEventListener('dragstart',e=>{
+      dragSrc=item;
+      setTimeout(()=>item.classList.add('dragging'),0);
+      e.dataTransfer.effectAllowed='move';
+    });
+    item.addEventListener('dragend',()=>{
+      item.classList.remove('dragging');
+      list.querySelectorAll('.admin-cocktail-item').forEach(el=>el.classList.remove('drag-over'));
+    });
+    item.addEventListener('dragover',e=>{
+      e.preventDefault();
+      e.dataTransfer.dropEffect='move';
+      if(item!==dragSrc){
+        list.querySelectorAll('.admin-cocktail-item').forEach(el=>el.classList.remove('drag-over'));
+        item.classList.add('drag-over');
+      }
+    });
+    item.addEventListener('drop',e=>{
+      e.preventDefault();
+      if(dragSrc&&dragSrc!==item){
+        const items=[...list.querySelectorAll('.admin-cocktail-item')];
+        const fromIdx=items.indexOf(dragSrc);
+        const toIdx=items.indexOf(item);
+        const moved=cocktails.splice(fromIdx,1)[0];
+        cocktails.splice(toIdx,0,moved);
+        buildAdminCocktails();
+      }
+    });
+  });
 }
 
 function toggleCocktailEditor(i){
