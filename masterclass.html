@@ -105,18 +105,32 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
 .admin-trigger{position:fixed;bottom:0;right:0;width:60px;height:60px;z-index:50;opacity:0;cursor:default;}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a2a1a;border:1px solid var(--green);color:var(--green-light);padding:9px 20px;border-radius:20px;font-size:0.82rem;z-index:600;transition:transform 0.3s;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
+/* LANG SWITCHER */
+.lang-switcher{display:flex;align-items:center;gap:6px;background:rgba(26,30,18,0.7);border:1px solid rgba(120,142,85,0.25);border-radius:24px;padding:5px 10px;}
+.lang-btn{display:flex;align-items:center;gap:5px;background:transparent;border:none;color:var(--muted);font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;padding:5px 10px;border-radius:18px;transition:background 0.2s,color 0.2s;}
+.lang-btn:hover{color:var(--cream);}
+.lang-btn.active{background:var(--gold);color:var(--dark);font-weight:600;}
+.lang-btn .flag{font-size:1rem;line-height:1;}
 </style>
 </head>
 <body>
 
 <nav>
   <img class="nav-logo" id="navLogo" src="" alt="Sicilian Cocktail Club">
-  <a class="nav-back" href="index.html">&#8592; Torna alla home</a>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('it')"><span class="flag">&#127470;&#127481;</span> IT</button>
+      <button class="lang-btn" onclick="setLang('en')"><span class="flag">&#127468;&#127463;</span> EN</button>
+      <button class="lang-btn" onclick="setLang('fr')"><span class="flag">&#127467;&#127479;</span> FR</button>
+      <button class="lang-btn" onclick="setLang('de')"><span class="flag">&#127465;&#127466;</span> DE</button>
+    </div>
+    <a class="nav-back" id="navBack" href="index.html">&#8592; Torna alla home</a>
+  </div>
 </nav>
 
 <div class="hero">
   <div class="hero-tag" id="heroTag">Master Class &middot; Gin Siciliano</div>
-  <h1 class="hero-title">Un&#39;esperienza <em id="heroEm">unica</em></h1>
+  <h1 class="hero-title" id="heroTitle">Un&#39;esperienza <em id="heroEm">unica</em></h1>
   <p class="hero-sub" id="heroSub">Scopri, degusta, crea &mdash; in piccoli gruppi esclusivi</p>
   <div class="divider"></div>
   <p class="hero-desc" id="heroDesc"></p>
@@ -130,26 +144,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
 
 <div class="form-section">
   <div class="form-wrap">
-    <div class="form-title">Prenota la tua esperienza</div>
-    <div class="form-sub">Compila il modulo &mdash; ti contatteremo per confermare</div>
+    <div class="form-title" id="formTitle">Prenota la tua esperienza</div>
+    <div class="form-sub" id="formSub">Compila il modulo &mdash; ti contatteremo per confermare</div>
 
     <div class="form-row">
       <div class="field">
-        <label class="field-label">Nome e Cognome *</label>
+        <label class="field-label" id="labelName">Nome e Cognome *</label>
         <input class="field-input" id="fName" placeholder="Mario Rossi">
       </div>
       <div class="field">
-        <label class="field-label">Email *</label>
+        <label class="field-label" id="labelEmail">Email *</label>
         <input class="field-input" id="fEmail" type="email" placeholder="mario@email.com">
       </div>
     </div>
     <div class="form-row">
       <div class="field">
-        <label class="field-label">Telefono *</label>
+        <label class="field-label" id="labelPhone">Telefono *</label>
         <input class="field-input" id="fPhone" placeholder="+39 333 000 0000">
       </div>
       <div class="field">
-        <label class="field-label">Numero di persone *</label>
+        <label class="field-label" id="labelPersone">Numero di persone *</label>
         <select class="field-select" id="fPersone">
           <option value="">-- scegli --</option>
         </select>
@@ -158,7 +172,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
     </div>
 
     <div class="field">
-      <label class="field-label">&#128197; Scegli un evento disponibile *</label>
+      <label class="field-label" id="labelEvent">&#128197; Scegli un evento disponibile *</label>
       <div class="events-list" id="eventsList">
         <div class="no-events">Nessun evento disponibile al momento.<br>Contattaci direttamente.</div>
       </div>
@@ -166,7 +180,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
     </div>
 
     <div class="field">
-      <label class="field-label">&#9888; Allergie / Intolleranze</label>
+      <label class="field-label" id="labelAllergie">&#9888; Allergie / Intolleranze</label>
       <textarea class="field-textarea" id="fAllergie" placeholder="Es: nessuna, intollerante al lattosio..."></textarea>
     </div>
 
@@ -178,9 +192,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
 <div class="modal-overlay" id="successModal">
   <div class="modal-box">
     <div class="modal-icon">&#127864;</div>
-    <div class="modal-title">Prenotazione inviata!</div>
+    <div class="modal-title" id="modalTitle">Prenotazione inviata!</div>
     <div class="modal-text" id="modalText">Grazie! Ti contatteremo presto.</div>
-    <button class="modal-btn" onclick="document.getElementById('successModal').classList.remove('open')">Chiudi</button>
+    <button class="modal-btn" id="modalBtn" onclick="document.getElementById('successModal').classList.remove('open')">Chiudi</button>
   </div>
 </div>
 
@@ -291,20 +305,22 @@ function loadConfig() {
 function applyConfig() {
   document.getElementById('heroSub').textContent = cfg.heroSub;
   document.getElementById('heroDesc').textContent = cfg.heroDesc;
-  document.getElementById('badgeMax').textContent = 'Max ' + cfg.max + ' persone';
-  document.getElementById('noteMin').textContent = 'Minimo ' + cfg.min + ' persone';
+  var t = TRANSLATIONS[currentLang] || TRANSLATIONS['it'];
+  document.getElementById('badgeMax').innerHTML = t.badgeMax.replace('{max}', cfg.max);
+  document.getElementById('noteMin').textContent = t.noteMin.replace('{min}', cfg.min);
   buildPersoneSelect();
   buildEventsList();
 }
 
 function buildPersoneSelect() {
+  var t = TRANSLATIONS[currentLang] || TRANSLATIONS['it'];
   var sel = document.getElementById('fPersone');
   var cur = sel.value;
-  sel.innerHTML = '<option value="">-- scegli --</option>';
+  sel.innerHTML = '<option value="">' + t.selectDefault + '</option>';
   for (var i = cfg.min; i <= cfg.max; i++) {
     var o = document.createElement('option');
     o.value = i;
-    o.textContent = i + ' persone';
+    o.textContent = i + ' ' + t.personeUnit;
     if (String(i) === cur) o.selected = true;
     sel.appendChild(o);
   }
@@ -321,10 +337,11 @@ function formatDate(str) {
 }
 
 function buildEventsList() {
+  var t = TRANSLATIONS[currentLang] || TRANSLATIONS['it'];
   var list = document.getElementById('eventsList');
   var evs = cfg.events || [];
   if (!evs.length) {
-    list.innerHTML = '<div class="no-events">Nessun evento disponibile al momento.<br>Contattaci direttamente.</div>';
+    list.innerHTML = '<div class="no-events">' + t.noEvents + '</div>';
     return;
   }
   var html = '';
@@ -335,7 +352,7 @@ function buildEventsList() {
     html += '<div class="event-icon">&#128197;</div>';
     html += '<div class="event-info">';
     html += '<div class="event-date">' + formatDate(ev.data) + '</div>';
-    html += '<div class="event-time">ore ' + (ev.ora || '--') + '</div>';
+    html += '<div class="event-time">' + t.ore + ' ' + (ev.ora || '--') + '</div>';
     html += '<div class="event-loc">&#128205; ' + (ev.location || '') + '</div>';
     html += '</div></div>';
   }
@@ -359,17 +376,17 @@ function submitBooking() {
   var allergie = document.getElementById('fAllergie').value.trim() || 'Nessuna';
 
   if (!name || !email || !phone || !persone) {
-    showToast('Compila tutti i campi obbligatori');
+    showToast(TRANSLATIONS[currentLang].toastFields);
     return;
   }
   if (!evento && cfg.events.length) {
-    showToast('Seleziona un evento disponibile');
+    showToast(TRANSLATIONS[currentLang].toastEvent);
     return;
   }
 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = 'Invio in corso...';
+  btn.innerHTML = TRANSLATIONS[currentLang].sending;
 
   fetch(SHEETS_URL, {
     method: 'POST',
@@ -397,7 +414,7 @@ function submitBooking() {
     selectedEvent = null;
     buildEventsList();
     btn.disabled = false;
-    btn.textContent = 'Invia prenotazione';
+    btn.innerHTML = TRANSLATIONS[currentLang].submitBtn;
   });
 }
 
@@ -500,6 +517,177 @@ function showToast(msg) {
   el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(function() { el.classList.remove('show'); }, 2800);
+}
+
+// MULTILANGUAGE
+var currentLang = 'it';
+
+var TRANSLATIONS = {
+  it: {
+    navBack: '&#8592; Torna alla home',
+    heroTag: 'Master Class &middot; Gin Siciliano',
+    heroTitle: 'Un&#39;esperienza',
+    heroEm: 'unica',
+    heroSub: 'Scopri, degusta, crea &mdash; in piccoli gruppi esclusivi',
+    heroDesc: 'Il Sicilian Cocktail Club offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per piccoli gruppi, con un massimo di 6 persone al momento. Se siete un gruppo pi\u00f9 numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.',
+    badgeGin: '&#127864; Gin Siciliano',
+    badgeMax: '&#128101; Max {max} persone',
+    badgeLoc: '&#128205; Location esclusiva',
+    badgeDur: '&#9202; ~2 ore',
+    formTitle: 'Prenota la tua esperienza',
+    formSub: 'Compila il modulo &mdash; ti contatteremo per confermare',
+    labelName: 'Nome e Cognome *',
+    labelEmail: 'Email *',
+    labelPhone: 'Telefono *',
+    labelPersone: 'Numero di persone *',
+    labelEvent: '&#128197; Scegli un evento disponibile *',
+    labelAllergie: '&#9888; Allergie / Intolleranze',
+    placeholderAllergie: 'Es: nessuna, intollerante al lattosio...',
+    selectDefault: '-- scegli --',
+    personeUnit: 'persone',
+    noEvents: 'Nessun evento disponibile al momento.<br>Contattaci direttamente.',
+    noteMin: 'Minimo {min} persone',
+    submitBtn: '&#10003; Invia prenotazione',
+    modalTitle: 'Prenotazione inviata!',
+    modalBtn: 'Chiudi',
+    toastFields: 'Compila tutti i campi obbligatori',
+    toastEvent: 'Seleziona un evento disponibile',
+    sending: 'Invio in corso...',
+    ore: 'ore'
+  },
+  en: {
+    navBack: '&#8592; Back to home',
+    heroTag: 'Master Class &middot; Sicilian Gin',
+    heroTitle: 'A',
+    heroEm: 'unique experience',
+    heroSub: 'Discover, taste, create &mdash; in small exclusive groups',
+    heroDesc: 'The Sicilian Cocktail Club offers Gin Master Classes where you will discover the history of gin, take part in a tasting and learn to create your own Sicilian gin cocktail. Sessions are held in small groups, with a maximum of 6 people at the moment. If you are a larger group, contact us directly and we will do our best to accommodate everyone.',
+    badgeGin: '&#127864; Sicilian Gin',
+    badgeMax: '&#128101; Max {max} people',
+    badgeLoc: '&#128205; Exclusive location',
+    badgeDur: '&#9202; ~2 hours',
+    formTitle: 'Book your experience',
+    formSub: 'Fill in the form &mdash; we will contact you to confirm',
+    labelName: 'Full Name *',
+    labelEmail: 'Email *',
+    labelPhone: 'Phone *',
+    labelPersone: 'Number of people *',
+    labelEvent: '&#128197; Choose an available event *',
+    labelAllergie: '&#9888; Allergies / Intolerances',
+    placeholderAllergie: 'E.g.: none, lactose intolerant...',
+    selectDefault: '-- choose --',
+    personeUnit: 'people',
+    noEvents: 'No events available at the moment.<br>Contact us directly.',
+    noteMin: 'Minimum {min} people',
+    submitBtn: '&#10003; Send booking',
+    modalTitle: 'Booking sent!',
+    modalBtn: 'Close',
+    toastFields: 'Please fill in all required fields',
+    toastEvent: 'Please select an available event',
+    sending: 'Sending...',
+    ore: 'at'
+  },
+  fr: {
+    navBack: '&#8592; Retour &agrave; l&#39;accueil',
+    heroTag: 'Master Class &middot; Gin Sicilien',
+    heroTitle: 'Une exp&eacute;rience',
+    heroEm: 'unique',
+    heroSub: 'D&eacute;couvrez, d&eacute;gustez, cr&eacute;ez &mdash; en petits groupes exclusifs',
+    heroDesc: 'Le Sicilian Cocktail Club propose des Master Classes de Gin au cours desquelles vous d\u00e9couvrirez l\'histoire du gin, participerez \u00e0 une d\u00e9gustation et apprendrez \u00e0 cr\u00e9er votre propre cocktail au gin sicilien. Les s\u00e9ances se d\u00e9roulent en petits groupes, avec un maximum de 6 personnes actuellement. Si vous \u00eates un groupe plus nombreux, contactez-nous directement et nous ferons tout notre possible pour vous accueillir.',
+    badgeGin: '&#127864; Gin Sicilien',
+    badgeMax: '&#128101; Max {max} personnes',
+    badgeLoc: '&#128205; Lieu exclusif',
+    badgeDur: '&#9202; ~2 heures',
+    formTitle: 'R&eacute;servez votre exp&eacute;rience',
+    formSub: 'Remplissez le formulaire &mdash; nous vous contacterons pour confirmer',
+    labelName: 'Nom et Pr&eacute;nom *',
+    labelEmail: 'E-mail *',
+    labelPhone: 'T&eacute;l&eacute;phone *',
+    labelPersone: 'Nombre de personnes *',
+    labelEvent: '&#128197; Choisissez un &eacute;v&eacute;nement disponible *',
+    labelAllergie: '&#9888; Allergies / Intol&eacute;rances',
+    placeholderAllergie: 'Ex : aucune, intol&eacute;rant au lactose...',
+    selectDefault: '-- choisir --',
+    personeUnit: 'personnes',
+    noEvents: 'Aucun &eacute;v&eacute;nement disponible pour le moment.<br>Contactez-nous directement.',
+    noteMin: 'Minimum {min} personnes',
+    submitBtn: '&#10003; Envoyer la r&eacute;servation',
+    modalTitle: 'R&eacute;servation envoy&eacute;e !',
+    modalBtn: 'Fermer',
+    toastFields: 'Veuillez remplir tous les champs obligatoires',
+    toastEvent: 'Veuillez s&eacute;lectionner un &eacute;v&eacute;nement disponible',
+    sending: 'Envoi en cours...',
+    ore: '\u00e0'
+  },
+  de: {
+    navBack: '&#8592; Zur&uuml;ck zur Startseite',
+    heroTag: 'Master Class &middot; Sizilianischer Gin',
+    heroTitle: 'Ein',
+    heroEm: 'einzigartiges Erlebnis',
+    heroSub: 'Entdecken, verkosten, kreieren &mdash; in kleinen exklusiven Gruppen',
+    heroDesc: 'Der Sicilian Cocktail Club bietet Gin-Master-Classes an, bei denen Sie die Geschichte des Gins entdecken, an einer Verkostung teilnehmen und lernen, Ihren eigenen sizilianischen Gin-Cocktail zuzubereiten. Die Sitzungen finden in kleinen Gruppen statt, derzeit mit maximal 6 Personen. Wenn Sie eine gr\u00f6\u00dfere Gruppe sind, kontaktieren Sie uns direkt und wir werden versuchen, alle unterzubringen.',
+    badgeGin: '&#127864; Sizilianischer Gin',
+    badgeMax: '&#128101; Max {max} Personen',
+    badgeLoc: '&#128205; Exklusiver Ort',
+    badgeDur: '&#9202; ~2 Stunden',
+    formTitle: 'Buchen Sie Ihr Erlebnis',
+    formSub: 'F&uuml;llen Sie das Formular aus &mdash; wir werden Sie zur Best&auml;tigung kontaktieren',
+    labelName: 'Vor- und Nachname *',
+    labelEmail: 'E-Mail *',
+    labelPhone: 'Telefon *',
+    labelPersone: 'Anzahl der Personen *',
+    labelEvent: '&#128197; W&auml;hlen Sie ein verf&uuml;gbares Event *',
+    labelAllergie: '&#9888; Allergien / Unvertr&auml;glichkeiten',
+    placeholderAllergie: 'Z.B.: keine, laktoseintolerant...',
+    selectDefault: '-- w&auml;hlen --',
+    personeUnit: 'Personen',
+    noEvents: 'Derzeit keine Events verf&uuml;gbar.<br>Kontaktieren Sie uns direkt.',
+    noteMin: 'Mindestens {min} Personen',
+    submitBtn: '&#10003; Buchung absenden',
+    modalTitle: 'Buchung gesendet!',
+    modalBtn: 'Schlie&szlig;en',
+    toastFields: 'Bitte f&uuml;llen Sie alle Pflichtfelder aus',
+    toastEvent: 'Bitte w&auml;hlen Sie ein verf&uuml;gbares Event',
+    sending: 'Wird gesendet...',
+    ore: 'um'
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.remove('active');
+    if (b.getAttribute('onclick') === "setLang('" + lang + "')") b.classList.add('active');
+  });
+  var t = TRANSLATIONS[lang];
+  document.getElementById('navBack').innerHTML = t.navBack;
+  document.getElementById('heroTag').innerHTML = t.heroTag;
+  document.getElementById('heroTitle').innerHTML = t.heroTitle + ' <em id="heroEm">' + t.heroEm + '</em>';
+  document.getElementById('heroSub').innerHTML = t.heroSub;
+  document.getElementById('heroDesc').textContent = t.heroDesc;
+  document.getElementById('formTitle').innerHTML = t.formTitle;
+  document.getElementById('formSub').innerHTML = t.formSub;
+  document.getElementById('labelName').innerHTML = t.labelName;
+  document.getElementById('labelEmail').innerHTML = t.labelEmail;
+  document.getElementById('labelPhone').innerHTML = t.labelPhone;
+  document.getElementById('labelPersone').innerHTML = t.labelPersone;
+  document.getElementById('labelEvent').innerHTML = t.labelEvent;
+  document.getElementById('labelAllergie').innerHTML = t.labelAllergie;
+  document.getElementById('fAllergie').placeholder = t.placeholderAllergie;
+  document.getElementById('modalTitle').innerHTML = t.modalTitle;
+  document.getElementById('modalBtn').innerHTML = t.modalBtn;
+  document.getElementById('submitBtn').innerHTML = t.submitBtn;
+  // badges
+  var badges = document.querySelectorAll('.badge');
+  if (badges[0]) badges[0].innerHTML = t.badgeGin;
+  if (badges[1]) badges[1].innerHTML = t.badgeMax.replace('{max}', cfg.max);
+  if (badges[2]) badges[2].innerHTML = t.badgeLoc;
+  if (badges[3]) badges[3].innerHTML = t.badgeDur;
+  // note min
+  document.getElementById('noteMin').textContent = t.noteMin.replace('{min}', cfg.min);
+  // rebuild dynamic parts
+  buildPersoneSelect();
+  buildEventsList();
 }
 
 loadConfig();
