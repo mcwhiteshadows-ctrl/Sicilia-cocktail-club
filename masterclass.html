@@ -4,112 +4,154 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Masterclass — Sicilian Cocktail Club</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --green:#788E55;
-  --green-light:#9aad73;
-  --cream:#F9FAF7;
-  --gold:#EEBE2C;
-  --gold-light:#FCEA8D;
-  --blue:#9CC6DE;
-  --dark:#1a1e12;
-  --dark2:#232818;
-  --muted:#a8b090;
+  --green:#7ab8d4;
+  --green-light:#9fcfe3;
+  --cream:#f0ead6;
+  --gold:#c9a84c;
+  --gold-light:#e8c97a;
+  --blue:#7ab8d4;
+  --dark:#0d0d0d;
+  --dark2:#1a1a1a;
+  --muted:#8a8070;
   --red:#c0392b;
+  --card:#1e1c19;
+  --dark3:#242424;
+  --border:#2e2a22;
 }
-body{background:var(--dark);color:var(--cream);font-family:'Jost',sans-serif;min-height:100vh;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(26,30,18,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(120,142,85,0.2);}
-.nav-logo{height:44px;}
-.nav-back{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--green-light);text-decoration:none;}
+body{background:var(--dark);color:var(--cream);font-family:'Lato',sans-serif;font-weight:300;min-height:100vh;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;background:var(--dark2);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{height:40px;}
+.nav-back{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
 .nav-back:hover{color:var(--gold);}
-.hero{padding:140px 24px 60px;text-align:center;max-width:760px;margin:0 auto;}
-.hero-tag{display:inline-block;font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(238,190,44,0.35);padding:5px 16px;margin-bottom:24px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:600;line-height:1.1;margin-bottom:14px;}
+.hero-section{background:linear-gradient(180deg,#1a1714 0%,var(--dark) 100%);border-bottom:1px solid var(--border);}
+.hero{padding:130px 24px 60px;text-align:center;max-width:760px;margin:0 auto;}
+.hero-tag{display:inline-block;font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:5px 16px;margin-bottom:24px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:600;line-height:1.1;margin-bottom:14px;color:var(--blue);}
 .hero-title em{font-style:italic;color:var(--gold-light);}
 .hero-sub{font-size:0.9rem;color:var(--muted);margin-bottom:32px;}
-.divider{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 36px;}
-.hero-desc{font-size:1rem;line-height:1.85;color:rgba(249,250,247,0.8);margin-bottom:40px;}
+.divider{width:50px;height:2px;background:var(--gold);margin:0 auto 36px;opacity:0.5;}
+.hero-desc{font-size:1rem;line-height:1.85;color:rgba(240,234,214,0.8);margin-bottom:40px;}
 .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:60px;}
-.badge{background:rgba(120,142,85,0.15);border:1px solid rgba(120,142,85,0.3);border-radius:20px;padding:7px 16px;font-size:0.78rem;color:var(--green-light);}
+.badge{background:var(--dark3);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:0.78rem;color:var(--gold-light);}
 .form-section{padding:0 24px 100px;}
-.form-wrap{max-width:580px;margin:0 auto;background:rgba(35,40,24,0.8);border:1px solid rgba(120,142,85,0.2);border-radius:12px;padding:36px;}
-.form-title{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:4px;}
+.form-wrap{max-width:580px;margin:0 auto;background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:36px;}
+.form-title{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:4px;color:var(--blue);}
 .form-sub{font-size:0.82rem;color:var(--muted);margin-bottom:28px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 @media(max-width:520px){.form-row{grid-template-columns:1fr;}.form-wrap{padding:24px 18px;}}
 .field{margin-bottom:14px;}
 .field-label{display:block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-.field-input,.field-select,.field-textarea{background:rgba(26,30,18,0.9);border:1px solid rgba(120,142,85,0.25);border-radius:6px;padding:11px 14px;color:var(--cream);font-family:'Jost',sans-serif;font-size:0.88rem;outline:none;width:100%;transition:border-color 0.2s;}
-.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--green);}
+.field-input,.field-select,.field-textarea{background:var(--dark3);border:1px solid var(--border);border-radius:6px;padding:11px 14px;color:var(--cream);font-family:'Lato',sans-serif;font-size:0.88rem;outline:none;width:100%;transition:border-color 0.2s;}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--gold);}
 .field-select{cursor:pointer;-webkit-appearance:none;appearance:none;}
-.field-select option{background:#232818;}
+.field-select option{background:var(--dark2);}
 .field-textarea{resize:vertical;min-height:80px;}
 .field-note{font-size:0.72rem;color:var(--muted);margin-top:4px;}
 /* EVENTI */
 .events-list{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
-.event-card{background:rgba(26,30,18,0.9);border:1px solid rgba(120,142,85,0.25);border-radius:8px;padding:14px 16px;cursor:pointer;transition:border-color 0.2s,background 0.2s;display:flex;align-items:center;gap:14px;}
-.event-card:hover{border-color:var(--green);}
-.event-card.selected{background:rgba(120,142,85,0.15);border-color:var(--green);}
+.event-card{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:border-color 0.2s,background 0.2s;display:flex;align-items:center;gap:14px;}
+.event-card:hover{border-color:var(--gold);}
+.event-card.selected{background:rgba(201,168,76,0.08);border-color:var(--gold);}
 .event-icon{font-size:1.5rem;flex-shrink:0;}
 .event-info{flex:1;}
 .event-date{font-size:0.9rem;font-weight:600;color:var(--cream);}
-.event-time{font-size:0.78rem;color:var(--green-light);margin-top:2px;}
+.event-time{font-size:0.78rem;color:var(--gold-light);margin-top:2px;}
 .event-loc{font-size:0.75rem;color:var(--muted);margin-top:3px;}
-.no-events{text-align:center;padding:20px;color:var(--muted);font-size:0.85rem;border:1px dashed rgba(120,142,85,0.2);border-radius:8px;}
-.submit-btn{width:100%;background:linear-gradient(135deg,var(--green),var(--green-light));color:var(--dark);border:none;border-radius:8px;padding:14px;font-family:'Jost',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;margin-top:22px;transition:opacity 0.2s;}
-.submit-btn:hover{opacity:0.9;}
+.no-events{text-align:center;padding:20px;color:var(--muted);font-size:0.85rem;border:1px dashed rgba(201,168,76,0.2);border-radius:8px;}
+.submit-btn{width:100%;background:var(--gold);color:var(--dark);border:none;border-radius:8px;padding:14px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;margin-top:22px;transition:background 0.2s;}
+.submit-btn:hover{background:var(--gold-light);}
 .submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
 .modal-overlay.open{display:flex;}
-.modal-box{background:var(--dark2);border:1px solid rgba(120,142,85,0.3);border-radius:12px;padding:36px 28px;max-width:400px;width:100%;text-align:center;}
+.modal-box{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:36px 28px;max-width:400px;width:100%;text-align:center;}
 .modal-icon{font-size:2.8rem;margin-bottom:14px;}
 .modal-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold-light);margin-bottom:8px;}
 .modal-text{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:20px;}
-.modal-btn{background:var(--green);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-family:'Jost',sans-serif;font-weight:700;cursor:pointer;}
+.modal-btn{background:var(--gold);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-family:'Lato',sans-serif;font-weight:700;cursor:pointer;}
 /* PWD */
-.pwd-box{background:#1a1e12;border:1px solid rgba(120,142,85,0.3);border-radius:12px;padding:28px;max-width:300px;width:90%;text-align:center;}
+.pwd-box{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:28px;max-width:300px;width:90%;text-align:center;}
 .pwd-box h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.2rem;margin-bottom:6px;}
 .pwd-box p{color:var(--muted);font-size:0.82rem;margin-bottom:16px;}
-.pwd-input{width:100%;background:#252525;border:1px solid rgba(120,142,85,0.3);border-radius:6px;padding:10px;color:var(--cream);font-family:'Jost',sans-serif;font-size:0.9rem;outline:none;margin-bottom:10px;text-align:center;letter-spacing:2px;}
-.pwd-btn{background:var(--green);color:var(--dark);border:none;padding:10px 20px;border-radius:6px;font-family:'Jost',sans-serif;font-weight:700;cursor:pointer;margin-right:6px;}
-.pwd-cancel{background:transparent;color:var(--muted);border:1px solid rgba(120,142,85,0.2);padding:10px 16px;border-radius:6px;font-family:'Jost',sans-serif;cursor:pointer;}
+.pwd-input{width:100%;background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:10px;color:var(--cream);font-family:'Lato',sans-serif;font-size:0.9rem;outline:none;margin-bottom:10px;text-align:center;letter-spacing:2px;}
+.pwd-btn{background:var(--gold);color:var(--dark);border:none;padding:10px 20px;border-radius:6px;font-family:'Lato',sans-serif;font-weight:700;cursor:pointer;margin-right:6px;}
+.pwd-cancel{background:transparent;color:var(--muted);border:1px solid var(--border);padding:10px 16px;border-radius:6px;font-family:'Lato',sans-serif;cursor:pointer;}
 .pwd-error{color:var(--red);font-size:0.78rem;margin-top:6px;display:none;}
 /* ADMIN */
-.admin-panel{background:#111;border:1px solid #2a2e20;border-radius:12px;width:min(540px,100%);margin:auto;}
-.admin-head{padding:14px 18px;border-bottom:1px solid #2a2e20;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#111;border-radius:12px 12px 0 0;z-index:1;}
+.admin-panel{background:var(--dark2);border:1px solid var(--border);border-radius:12px;width:min(540px,100%);margin:auto;}
+.admin-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--dark2);border-radius:12px 12px 0 0;z-index:1;}
 .admin-head h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:1rem;}
-.admin-close{background:transparent;border:none;color:#8a8070;font-size:1.3rem;cursor:pointer;}
+.admin-close{background:transparent;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
 .admin-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
-.admin-section{background:#1a1e12;border:1px solid #2a2e20;border-radius:8px;padding:14px;}
+.admin-section{background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:14px;}
 .admin-section-title{font-size:0.68rem;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;font-weight:700;}
 .admin-field{margin-bottom:10px;}
 .admin-field:last-child{margin-bottom:0;}
-.admin-label{display:block;font-size:0.65rem;color:#8a8070;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;}
-.admin-input{background:#0d0d0d;border:1px solid #2e2a22;border-radius:5px;padding:8px 10px;color:#f0ece4;font-family:'Jost',sans-serif;font-size:0.84rem;outline:none;width:100%;}
-.admin-input:focus{border-color:var(--green);}
-.admin-textarea{background:#0d0d0d;border:1px solid #2e2a22;border-radius:5px;padding:8px 10px;color:#f0ece4;font-family:'Jost',sans-serif;font-size:0.84rem;outline:none;width:100%;min-height:80px;resize:vertical;}
+.admin-label{display:block;font-size:0.65rem;color:var(--muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;}
+.admin-input{background:var(--dark3);border:1px solid var(--border);border-radius:5px;padding:8px 10px;color:var(--cream);font-family:'Lato',sans-serif;font-size:0.84rem;outline:none;width:100%;}
+.admin-input:focus{border-color:var(--gold);}
+.admin-textarea{background:var(--dark3);border:1px solid var(--border);border-radius:5px;padding:8px 10px;color:var(--cream);font-family:'Lato',sans-serif;font-size:0.84rem;outline:none;width:100%;min-height:80px;resize:vertical;}
 /* EVENTI ADMIN */
 .events-admin-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
-.event-admin-row{background:#0d0d0d;border:1px solid #2a2e20;border-radius:8px;padding:12px;}
+.event-admin-row{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:12px;}
 .event-admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
-.event-admin-input{background:#1a1a1a;border:1px solid #2e2a22;border-radius:5px;padding:7px 10px;color:#f0ece4;font-family:'Jost',sans-serif;font-size:0.82rem;outline:none;width:100%;}
-.event-admin-input:focus{border-color:var(--green);}
-.event-admin-label{font-size:0.65rem;color:#8a8070;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;display:block;}
-.event-del{background:transparent;border:1px solid #3a2020;color:#8a3030;border-radius:4px;padding:5px 10px;font-size:0.75rem;cursor:pointer;width:100%;margin-top:4px;font-family:'Jost',sans-serif;}
-.add-event-btn{background:transparent;border:1px dashed rgba(120,142,85,0.4);color:var(--green-light);border-radius:6px;padding:10px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;width:100%;margin-top:6px;}
-.admin-save-btn{background:var(--green);color:var(--dark);border:none;border-radius:6px;padding:12px;font-family:'Jost',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;width:100%;}
-.admin-export-btn{background:#1a2a1a;border:1px solid #3a5a3a;color:#7fba7f;border-radius:6px;padding:12px;font-family:'Jost',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;width:100%;margin-top:8px;}
+.event-admin-input{background:var(--dark2);border:1px solid var(--border);border-radius:5px;padding:7px 10px;color:var(--cream);font-family:'Lato',sans-serif;font-size:0.82rem;outline:none;width:100%;}
+.event-admin-input:focus{border-color:var(--gold);}
+.event-admin-label{font-size:0.65rem;color:var(--muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;display:block;}
+.event-del{background:transparent;border:1px solid #3a2020;color:#8a3030;border-radius:4px;padding:5px 10px;font-size:0.75rem;cursor:pointer;width:100%;margin-top:4px;font-family:'Lato',sans-serif;}
+.add-event-btn{background:transparent;border:1px dashed rgba(201,168,76,0.4);color:var(--gold-light);border-radius:6px;padding:10px;font-family:'Lato',sans-serif;font-size:0.82rem;cursor:pointer;width:100%;margin-top:6px;}
+.admin-save-btn{background:var(--gold);color:var(--dark);border:none;border-radius:6px;padding:12px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;width:100%;}
+.admin-export-btn{background:var(--dark3);border:1px solid var(--border);color:var(--gold-light);border-radius:6px;padding:12px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;width:100%;margin-top:8px;}
 .admin-trigger{position:fixed;bottom:0;right:0;width:60px;height:60px;z-index:50;opacity:0;cursor:default;}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a2a1a;border:1px solid var(--green);color:var(--green-light);padding:9px 20px;border-radius:20px;font-size:0.82rem;z-index:600;transition:transform 0.3s;white-space:nowrap;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark2);border:1px solid var(--gold);color:var(--gold-light);padding:9px 20px;border-radius:20px;font-size:0.82rem;z-index:600;transition:transform 0.3s;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
+/* PAYMENT SCREEN */
+.payment-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.payment-overlay.open{opacity:1;pointer-events:all;}
+.payment-box{background:var(--dark2);border:1px solid var(--border);border-radius:16px;padding:36px;max-width:520px;width:calc(100% - 48px);max-height:90vh;overflow-y:auto;}
+.payment-title{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:6px;text-align:center;color:var(--blue);}
+.payment-sub{font-size:0.8rem;color:var(--muted);text-align:center;margin-bottom:28px;}
+.payment-booking-recap{background:rgba(46,42,34,0.6);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:0.82rem;color:var(--muted);}
+.payment-booking-recap strong{color:var(--cream);}
+.payment-methods{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.payment-method{display:flex;align-items:center;gap:14px;background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:16px 18px;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.payment-method:hover{border-color:var(--green);background:rgba(201,168,76,0.06);}
+.payment-method.selected{border-color:var(--gold);background:rgba(201,168,76,0.07);}
+.payment-method-icon{font-size:1.5rem;flex-shrink:0;width:36px;text-align:center;}
+.payment-method-info{flex:1;}
+.payment-method-name{font-size:0.92rem;font-weight:600;color:var(--cream);margin-bottom:2px;}
+.payment-method-desc{font-size:0.76rem;color:var(--muted);}
+.payment-method-check{width:20px;height:20px;border:2px solid rgba(201,168,76,0.3);border-radius:50%;flex-shrink:0;transition:all 0.2s;}
+.payment-method.selected .payment-method-check{background:var(--gold);border-color:var(--gold);}
+.payment-action-btn{background:var(--gold);color:var(--dark);border:none;border-radius:8px;padding:13px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;width:100%;margin-bottom:10px;transition:background 0.2s;}
+.payment-action-btn:hover{background:var(--gold-light);}
+.payment-action-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.payment-cancel-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:11px;font-family:'Lato',sans-serif;font-size:0.82rem;color:var(--muted);cursor:pointer;width:100%;transition:all 0.2s;}
+.payment-cancel-btn:hover{border-color:var(--gold);color:var(--gold);}
+.payment-external-note{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.8rem;color:var(--gold-light);display:none;}
+.payment-external-note.show{display:block;}
+.payment-confirm-btn{background:var(--gold);color:var(--dark);border:none;border-radius:8px;padding:13px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;width:100%;margin-bottom:10px;display:none;}
+.payment-confirm-btn.show{display:block;}
+/* ADMIN PAYMENTS */
+.admin-payments-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:520px){.admin-payments-grid{grid-template-columns:1fr;}}
+.admin-toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;}
+.admin-toggle-label{font-size:0.82rem;color:var(--cream);}
+.admin-toggle{position:relative;display:inline-block;width:40px;height:22px;cursor:pointer;}
+.admin-toggle input{opacity:0;width:0;height:0;}
+.admin-toggle-slider{position:absolute;inset:0;background:#3a3a3a;border-radius:22px;transition:0.3s;}
+.admin-toggle-slider:before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+.admin-toggle input:checked+.admin-toggle-slider{background:var(--gold);}
+.admin-toggle input:checked+.admin-toggle-slider:before{transform:translateX(18px);}
 /* LANG SWITCHER */
-.lang-switcher{display:flex;align-items:center;gap:6px;background:rgba(26,30,18,0.7);border:1px solid rgba(120,142,85,0.25);border-radius:24px;padding:5px 10px;}
-.lang-btn{display:flex;align-items:center;gap:5px;background:transparent;border:none;color:var(--muted);font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;padding:5px 10px;border-radius:18px;transition:background 0.2s,color 0.2s;}
+.lang-switcher{display:flex;align-items:center;gap:3px;background:var(--dark3);border:1px solid var(--border);border-radius:6px;padding:3px;}
+.lang-btn{display:flex;align-items:center;gap:5px;background:transparent;border:none;color:var(--muted);font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;padding:5px 9px;border-radius:4px;transition:all 0.2s;}
 .lang-btn:hover{color:var(--cream);}
-.lang-btn.active{background:var(--gold);color:var(--dark);font-weight:600;}
+.lang-btn.active{background:var(--gold);color:var(--dark);font-weight:700;}
 .lang-btn .flag{font-size:1rem;line-height:1;}
 </style>
 </head>
@@ -128,6 +170,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
   </div>
 </nav>
 
+<div class="hero-section">
 <div class="hero">
   <div class="hero-tag" id="heroTag">Master Class &middot; Gin Siciliano</div>
   <h1 class="hero-title" id="heroTitle">Un&#39;esperienza <em id="heroEm">unica</em></h1>
@@ -255,9 +298,58 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:fl
         <button class="add-event-btn" onclick="addEvent()">+ Aggiungi evento</button>
       </div>
 
+      <div class="admin-section">
+        <div class="admin-section-title">&#128179; Pagamenti</div>
+        <p style="font-size:0.73rem;color:#8a8070;margin-bottom:12px;">Attiva o disattiva i metodi di pagamento. Per i metodi online inserisci il link (es. <em>https://revolut.me/tuonome</em>).</p>
+        <div class="admin-payments-grid">
+          <div class="admin-toggle-row">
+            <span class="admin-toggle-label">💵 Contanti</span>
+            <label class="admin-toggle"><input type="checkbox" id="aPayCash" checked><span class="admin-toggle-slider"></span></label>
+          </div>
+          <div class="admin-toggle-row">
+            <span class="admin-toggle-label">🔄 Revolut</span>
+            <label class="admin-toggle"><input type="checkbox" id="aPayRevolut"><span class="admin-toggle-slider"></span></label>
+          </div>
+          <div class="admin-toggle-row">
+            <span class="admin-toggle-label">🅿️ PayPal</span>
+            <label class="admin-toggle"><input type="checkbox" id="aPayPaypal"><span class="admin-toggle-slider"></span></label>
+          </div>
+          <div class="admin-toggle-row">
+            <span class="admin-toggle-label">💳 Carta (Stripe)</span>
+            <label class="admin-toggle"><input type="checkbox" id="aPayStripe"><span class="admin-toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="admin-field" style="margin-top:8px;">
+          <span class="admin-label">Link Revolut</span>
+          <input class="admin-input" id="aRevolutLink" type="url" placeholder="https://revolut.me/tuonome">
+        </div>
+        <div class="admin-field">
+          <span class="admin-label">Link PayPal</span>
+          <input class="admin-input" id="aPaypalLink" type="url" placeholder="https://paypal.me/tuonome">
+        </div>
+        <div class="admin-field">
+          <span class="admin-label">Link Stripe Checkout</span>
+          <input class="admin-input" id="aStripeLink" type="url" placeholder="https://buy.stripe.com/...">
+        </div>
+      </div>
+
       <button class="admin-save-btn" onclick="saveAdmin()">&#128190; Salva modifiche</button>
       <button class="admin-export-btn" onclick="exportPage()">&#8659; Esporta pagina aggiornata</button>
     </div>
+  </div>
+</div>
+
+<!-- PAYMENT OVERLAY -->
+<div class="payment-overlay" id="paymentOverlay">
+  <div class="payment-box">
+    <div class="payment-title" id="payTitle">Scegli come pagare</div>
+    <div class="payment-sub" id="paySubtitle">Completa il pagamento per confermare la prenotazione</div>
+    <div class="payment-booking-recap" id="payRecap"></div>
+    <div class="payment-methods" id="payMethods"></div>
+    <div class="payment-external-note" id="payExternalNote"></div>
+    <button class="payment-confirm-btn" id="payConfirmBtn" onclick="confirmAfterPayment()"></button>
+    <button class="payment-action-btn" id="payActionBtn" onclick="proceedPayment()"></button>
+    <button class="payment-cancel-btn" id="payCancelBtn" onclick="closePayment()"></button>
   </div>
 </div>
 
@@ -276,7 +368,16 @@ var cfg = {
   heroDesc: 'Il Sicilian Cocktail Club offre Master Class di Gin dove potrete scoprire la storia del gin, partecipare a una degustazione e imparare a creare il vostro cocktail al gin siciliano. Si tratta di sessioni per piccoli gruppi, con un massimo di 6 persone al momento. Se siete un gruppo piu numeroso, contattateci direttamente e cercheremo di accontentarvi tutti.',
   min: 3,
   max: 6,
-  events: []
+  events: [],
+  payments: {
+    cash: true,
+    revolut: false,
+    paypal: false,
+    stripe: false,
+    revolutLink: '',
+    paypalLink: '',
+    stripeLink: ''
+  }
 };
 
 var selectedEvent = null;
@@ -297,6 +398,9 @@ function loadConfig() {
       cfg.min = saved.min || cfg.min;
       cfg.max = saved.max || cfg.max;
       cfg.events = saved.events || cfg.events;
+      if (saved.payments) {
+        cfg.payments = Object.assign({}, cfg.payments, saved.payments);
+      }
     }
   } catch(e) {}
   applyConfig();
@@ -367,6 +471,10 @@ function selectEvent(i, el) {
   el.classList.add('selected');
 }
 
+// ------ PAYMENT SYSTEM ------
+var pendingBooking = null;
+var selectedPaymentMethod = null;
+
 function submitBooking() {
   var name = document.getElementById('fName').value.trim();
   var email = document.getElementById('fEmail').value.trim();
@@ -384,6 +492,117 @@ function submitBooking() {
     return;
   }
 
+  // Check active payment methods
+  var p = cfg.payments;
+  var methods = [];
+  if (p.cash !== false) methods.push('cash');
+  if (p.revolut) methods.push('revolut');
+  if (p.paypal) methods.push('paypal');
+  if (p.stripe) methods.push('stripe');
+
+  pendingBooking = { name: name, email: email, phone: phone, persone: persone, evento: evento, allergie: allergie };
+
+  if (methods.length === 0) {
+    // No payment configured: send directly
+    sendToSheets(pendingBooking, 'non_specificato');
+    return;
+  }
+
+  openPaymentScreen(methods);
+}
+
+function openPaymentScreen(methods) {
+  var t = TRANSLATIONS[currentLang];
+  selectedPaymentMethod = null;
+  document.getElementById('payTitle').textContent = t.payTitle;
+  document.getElementById('paySubtitle').textContent = t.paySubtitle;
+  document.getElementById('payActionBtn').textContent = t.payContinue;
+  document.getElementById('payCancelBtn').textContent = t.payCancel;
+  document.getElementById('payConfirmBtn').textContent = t.payConfirm;
+  document.getElementById('payConfirmBtn').classList.remove('show');
+  document.getElementById('payExternalNote').classList.remove('show');
+
+  // Recap
+  var b = pendingBooking;
+  document.getElementById('payRecap').innerHTML =
+    '<strong>' + b.name + '</strong> &mdash; ' + b.persone + ' ' + t.personeUnit +
+    (b.evento ? '<br><small>' + b.evento + '</small>' : '');
+
+  // Build methods
+  var icons = { cash: '💵', revolut: '🔄', paypal: '🅿️', stripe: '💳' };
+  var labels = t.payMethods;
+  var descs = t.payDescs;
+  var html = '';
+  methods.forEach(function(m) {
+    html += '<div class="payment-method" id="pm_' + m + '" onclick="selectPayMethod(\'' + m + '\')">';
+    html += '<div class="payment-method-icon">' + icons[m] + '</div>';
+    html += '<div class="payment-method-info"><div class="payment-method-name">' + labels[m] + '</div>';
+    html += '<div class="payment-method-desc">' + descs[m] + '</div></div>';
+    html += '<div class="payment-method-check"></div></div>';
+  });
+  document.getElementById('payMethods').innerHTML = html;
+  document.getElementById('paymentOverlay').classList.add('open');
+}
+
+function selectPayMethod(m) {
+  selectedPaymentMethod = m;
+  document.querySelectorAll('.payment-method').forEach(function(el) { el.classList.remove('selected'); });
+  var el = document.getElementById('pm_' + m);
+  if (el) el.classList.add('selected');
+  // Reset external note/confirm
+  document.getElementById('payExternalNote').classList.remove('show');
+  document.getElementById('payConfirmBtn').classList.remove('show');
+  document.getElementById('payActionBtn').style.display = '';
+  document.getElementById('payActionBtn').textContent = TRANSLATIONS[currentLang].payContinue;
+}
+
+function proceedPayment() {
+  if (!selectedPaymentMethod) {
+    showToast(TRANSLATIONS[currentLang].paySelectMethod);
+    return;
+  }
+  var t = TRANSLATIONS[currentLang];
+  var p = cfg.payments;
+
+  if (selectedPaymentMethod === 'cash') {
+    // Send immediately
+    sendToSheets(pendingBooking, 'contanti');
+    closePayment();
+  } else if (selectedPaymentMethod === 'revolut') {
+    var link = p.revolutLink || 'https://revolut.me/';
+    document.getElementById('payExternalNote').innerHTML = t.payExternalNote.replace('{method}', 'Revolut');
+    document.getElementById('payExternalNote').classList.add('show');
+    document.getElementById('payConfirmBtn').classList.add('show');
+    document.getElementById('payActionBtn').style.display = 'none';
+    window.open(link, '_blank');
+  } else if (selectedPaymentMethod === 'paypal') {
+    var link = p.paypalLink || 'https://paypal.me/';
+    document.getElementById('payExternalNote').innerHTML = t.payExternalNote.replace('{method}', 'PayPal');
+    document.getElementById('payExternalNote').classList.add('show');
+    document.getElementById('payConfirmBtn').classList.add('show');
+    document.getElementById('payActionBtn').style.display = 'none';
+    window.open(link, '_blank');
+  } else if (selectedPaymentMethod === 'stripe') {
+    var link = p.stripeLink || '#';
+    document.getElementById('payExternalNote').innerHTML = t.payExternalNote.replace('{method}', 'Carta');
+    document.getElementById('payExternalNote').classList.add('show');
+    document.getElementById('payConfirmBtn').classList.add('show');
+    document.getElementById('payActionBtn').style.display = 'none';
+    if (link && link !== '#') window.open(link, '_blank');
+  }
+}
+
+function confirmAfterPayment() {
+  var methodLabel = { revolut: 'Revolut', paypal: 'PayPal', stripe: 'Carta' };
+  sendToSheets(pendingBooking, methodLabel[selectedPaymentMethod] || selectedPaymentMethod);
+  closePayment();
+}
+
+function closePayment() {
+  document.getElementById('paymentOverlay').classList.remove('open');
+}
+
+function sendToSheets(b, paymentMethod) {
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.innerHTML = TRANSLATIONS[currentLang].sending;
@@ -394,16 +613,17 @@ function submitBooking() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       type: 'masterclass',
-      nome: name,
-      email: email,
-      telefono: phone,
-      persone: persone,
-      location: evento || 'Da concordare',
-      data: evento || 'Da concordare',
-      allergie: allergie
+      nome: b.name,
+      email: b.email,
+      telefono: b.phone,
+      persone: b.persone,
+      location: b.evento || 'Da concordare',
+      data: b.evento || 'Da concordare',
+      allergie: b.allergie,
+      pagamento: paymentMethod
     })
   }).finally(function() {
-    document.getElementById('modalText').textContent = 'Grazie ' + name + '! Abbiamo ricevuto la tua prenotazione per ' + persone + ' persone' + (evento ? ' - ' + evento : '') + '. Ti contatteremo presto per confermare.';
+    document.getElementById('modalText').textContent = 'Grazie ' + b.name + '! Abbiamo ricevuto la tua prenotazione per ' + b.persone + ' persone' + (b.evento ? ' - ' + b.evento : '') + '. Ti contatteremo presto per confermare.';
     document.getElementById('successModal').classList.add('open');
     document.getElementById('fName').value = '';
     document.getElementById('fEmail').value = '';
@@ -415,6 +635,8 @@ function submitBooking() {
     buildEventsList();
     btn.disabled = false;
     btn.innerHTML = TRANSLATIONS[currentLang].submitBtn;
+    pendingBooking = null;
+    selectedPaymentMethod = null;
   });
 }
 
@@ -453,6 +675,15 @@ function openAdmin() {
   document.getElementById('aHeroDesc').value = cfg.heroDesc;
   document.getElementById('aMin').value = cfg.min;
   document.getElementById('aMax').value = cfg.max;
+  // payments
+  var p = cfg.payments;
+  document.getElementById('aPayCash').checked = p.cash !== false;
+  document.getElementById('aPayRevolut').checked = !!p.revolut;
+  document.getElementById('aPayPaypal').checked = !!p.paypal;
+  document.getElementById('aPayStripe').checked = !!p.stripe;
+  document.getElementById('aRevolutLink').value = p.revolutLink || '';
+  document.getElementById('aPaypalLink').value = p.paypalLink || '';
+  document.getElementById('aStripeLink').value = p.stripeLink || '';
   buildAdminEvents();
   document.getElementById('adminOverlay').classList.add('open');
 }
@@ -491,6 +722,15 @@ function saveAdmin() {
   cfg.min = parseInt(document.getElementById('aMin').value) || 3;
   cfg.max = parseInt(document.getElementById('aMax').value) || 6;
   cfg.events = (cfg.events || []).filter(function(e) { return e.data && e.data.trim(); });
+  cfg.payments = {
+    cash: document.getElementById('aPayCash').checked,
+    revolut: document.getElementById('aPayRevolut').checked,
+    paypal: document.getElementById('aPayPaypal').checked,
+    stripe: document.getElementById('aPayStripe').checked,
+    revolutLink: document.getElementById('aRevolutLink').value.trim(),
+    paypalLink: document.getElementById('aPaypalLink').value.trim(),
+    stripeLink: document.getElementById('aStripeLink').value.trim()
+  };
   try { localStorage.setItem('scc_masterclass', JSON.stringify(cfg)); } catch(e) {}
   applyConfig();
   document.getElementById('adminOverlay').classList.remove('open');
@@ -553,7 +793,16 @@ var TRANSLATIONS = {
     toastFields: 'Compila tutti i campi obbligatori',
     toastEvent: 'Seleziona un evento disponibile',
     sending: 'Invio in corso...',
-    ore: 'ore'
+    ore: 'ore',
+    payTitle: 'Come vuoi pagare?',
+    paySubtitle: 'Scegli il metodo di pagamento per confermare la prenotazione',
+    payContinue: 'Continua →',
+    payCancel: 'Torna al modulo',
+    payConfirm: '✓ Ho pagato, conferma prenotazione',
+    paySelectMethod: 'Seleziona un metodo di pagamento',
+    payExternalNote: 'Si aprirà la pagina di {method} in una nuova scheda. Dopo aver completato il pagamento, clicca il pulsante qui sotto per confermare la prenotazione.',
+    payMethods: { cash: 'Contanti', revolut: 'Revolut', paypal: 'PayPal', stripe: 'Carta di credito' },
+    payDescs: { cash: 'Pagherai in loco il giorno dell\'evento', revolut: 'Pagamento rapido via Revolut', paypal: 'Paga in sicurezza con PayPal', stripe: 'Paga con carta via Stripe (link esterno)' }
   },
   en: {
     navBack: '&#8592; Back to home',
@@ -585,7 +834,16 @@ var TRANSLATIONS = {
     toastFields: 'Please fill in all required fields',
     toastEvent: 'Please select an available event',
     sending: 'Sending...',
-    ore: 'at'
+    ore: 'at',
+    payTitle: 'How would you like to pay?',
+    paySubtitle: 'Choose a payment method to confirm your booking',
+    payContinue: 'Continue →',
+    payCancel: 'Back to form',
+    payConfirm: '✓ I have paid, confirm booking',
+    paySelectMethod: 'Please select a payment method',
+    payExternalNote: 'The {method} payment page will open in a new tab. After completing the payment, click the button below to confirm your booking.',
+    payMethods: { cash: 'Cash', revolut: 'Revolut', paypal: 'PayPal', stripe: 'Credit card' },
+    payDescs: { cash: 'You will pay on the day of the event', revolut: 'Quick payment via Revolut', paypal: 'Pay securely with PayPal', stripe: 'Pay by card via Stripe (external link)' }
   },
   fr: {
     navBack: '&#8592; Retour &agrave; l&#39;accueil',
@@ -617,7 +875,16 @@ var TRANSLATIONS = {
     toastFields: 'Veuillez remplir tous les champs obligatoires',
     toastEvent: 'Veuillez s&eacute;lectionner un &eacute;v&eacute;nement disponible',
     sending: 'Envoi en cours...',
-    ore: '\u00e0'
+    ore: '\u00e0',
+    payTitle: 'Comment souhaitez-vous payer\u00a0?',
+    paySubtitle: 'Choisissez un mode de paiement pour confirmer votre r\u00e9servation',
+    payContinue: 'Continuer \u2192',
+    payCancel: 'Retour au formulaire',
+    payConfirm: '\u2713 J\u2019ai pay\u00e9, confirmer la r\u00e9servation',
+    paySelectMethod: 'Veuillez s\u00e9lectionner un mode de paiement',
+    payExternalNote: 'La page de paiement {method} s\u2019ouvrira dans un nouvel onglet. Apr\u00e8s avoir effectu\u00e9 le paiement, cliquez sur le bouton ci-dessous pour confirmer votre r\u00e9servation.',
+    payMethods: { cash: 'Esp\u00e8ces', revolut: 'Revolut', paypal: 'PayPal', stripe: 'Carte bancaire' },
+    payDescs: { cash: 'Vous paierez sur place le jour de l\u2019\u00e9v\u00e9nement', revolut: 'Paiement rapide via Revolut', paypal: 'Payez en toute s\u00e9curit\u00e9 avec PayPal', stripe: 'Payez par carte via Stripe (lien externe)' }
   },
   de: {
     navBack: '&#8592; Zur&uuml;ck zur Startseite',
@@ -649,7 +916,16 @@ var TRANSLATIONS = {
     toastFields: 'Bitte f&uuml;llen Sie alle Pflichtfelder aus',
     toastEvent: 'Bitte w&auml;hlen Sie ein verf&uuml;gbares Event',
     sending: 'Wird gesendet...',
-    ore: 'um'
+    ore: 'um',
+    payTitle: 'Wie m\u00f6chten Sie bezahlen?',
+    paySubtitle: 'W\u00e4hlen Sie eine Zahlungsmethode, um Ihre Buchung zu best\u00e4tigen',
+    payContinue: 'Weiter \u2192',
+    payCancel: 'Zur\u00fcck zum Formular',
+    payConfirm: '\u2713 Ich habe bezahlt, Buchung best\u00e4tigen',
+    paySelectMethod: 'Bitte w\u00e4hlen Sie eine Zahlungsmethode',
+    payExternalNote: 'Die {method}-Zahlungsseite wird in einem neuen Tab ge\u00f6ffnet. Nach Abschluss der Zahlung klicken Sie auf den Button, um Ihre Buchung zu best\u00e4tigen.',
+    payMethods: { cash: 'Bar', revolut: 'Revolut', paypal: 'PayPal', stripe: 'Kreditkarte' },
+    payDescs: { cash: 'Sie zahlen am Tag der Veranstaltung vor Ort', revolut: 'Schnelle Zahlung \u00fcber Revolut', paypal: 'Sicher mit PayPal bezahlen', stripe: 'Per Karte \u00fcber Stripe bezahlen (externer Link)' }
   }
 };
 
