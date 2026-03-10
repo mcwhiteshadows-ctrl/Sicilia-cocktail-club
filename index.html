@@ -67,15 +67,6 @@
     .color-chip{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform 0.2s,border-color 0.2s;flex-shrink:0;}
     .color-chip:hover{transform:scale(1.15);}
     .color-chip.active{border-color:var(--gold);}
-    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;}
-    .toggle-row-label{font-size:0.84rem;color:var(--text);}
-    .toggle{position:relative;display:inline-block;width:42px;height:24px;flex-shrink:0;}
-    .toggle input{opacity:0;width:0;height:0;}
-    .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#333;border-radius:24px;transition:0.3s;}
-    .toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.3s;}
-    input:checked+.toggle-slider{background:var(--gold);}
-    input:checked+.toggle-slider:before{transform:translateX(18px);}
-    .card-hidden{display:none !important;}
   </style>
 </head>
 <body>
@@ -139,10 +130,6 @@
 
       <div class="admin-section">
         <div class="admin-section-title">🍹 Card 1 — Cocktail</div>
-        <div class="toggle-row">
-          <span class="toggle-row-label">Visibile ai clienti</span>
-          <label class="toggle"><input type="checkbox" id="aVisible1" checked><span class="toggle-slider"></span></label>
-        </div>
         <div class="admin-field">
           <span class="admin-label">Emoji</span>
           <input class="admin-input" id="aIcon1" value="🍹" style="font-size:1.2rem">
@@ -159,10 +146,6 @@
 
       <div class="admin-section">
         <div class="admin-section-title">🎓 Card 2 — Masterclass</div>
-        <div class="toggle-row">
-          <span class="toggle-row-label">Visibile ai clienti</span>
-          <label class="toggle"><input type="checkbox" id="aVisible2" checked><span class="toggle-slider"></span></label>
-        </div>
         <div class="admin-field">
           <span class="admin-label">Emoji</span>
           <input class="admin-input" id="aIcon2" value="🎓" style="font-size:1.2rem">
@@ -202,6 +185,7 @@
 const ADMIN_PWD='sicilian2025';
 let bgColor='#0d0d0d';
 
+// Load saved config
 function loadConfig(){
   try{
     const raw=localStorage.getItem('scc_homepage');
@@ -217,10 +201,6 @@ function loadConfig(){
     if(c.title2) setTxt('title2',c.title2);
     if(c.sub2) setTxt('sub2',c.sub2);
     if(c.bgColor){bgColor=c.bgColor;document.body.style.backgroundColor=bgColor;}
-    const card1=document.querySelector('.cards .card:nth-child(1)');
-    const card2=document.querySelector('.cards .card:nth-child(2)');
-    if(card1) card1.classList.toggle('card-hidden', c.visible1===false);
-    if(card2) card2.classList.toggle('card-hidden', c.visible2===false);
   }catch(e){}
 }
 
@@ -234,11 +214,9 @@ function saveHomepage(){
     icon1:document.getElementById('aIcon1').value,
     title1:document.getElementById('aTitle1').value,
     sub1:document.getElementById('aSub1').value,
-    visible1:document.getElementById('aVisible1').checked,
     icon2:document.getElementById('aIcon2').value,
     title2:document.getElementById('aTitle2').value,
     sub2:document.getElementById('aSub2').value,
-    visible2:document.getElementById('aVisible2').checked,
     bgColor
   };
   // Apply live
@@ -252,11 +230,6 @@ function saveHomepage(){
   setTxt('title2',config.title2);
   setTxt('sub2',config.sub2);
   document.body.style.backgroundColor=bgColor;
-  // Apply card visibility
-  const card1=document.querySelector('.cards .card:nth-child(1)');
-  const card2=document.querySelector('.cards .card:nth-child(2)');
-  if(card1) card1.classList.toggle('card-hidden',!config.visible1);
-  if(card2) card2.classList.toggle('card-hidden',!config.visible2);
   // Save
   try{localStorage.setItem('scc_homepage',JSON.stringify(config));}catch(e){}
   document.getElementById('adminOverlay').classList.remove('open');
@@ -300,12 +273,11 @@ function openAdmin(){
   document.getElementById('aIcon1').value=c.icon1||'🍹';
   document.getElementById('aTitle1').value=c.title1||'Ordinare cocktail a domicilio';
   document.getElementById('aSub1').value=c.sub1||'Ricevi i tuoi cocktail preferiti direttamente a casa tua';
-  document.getElementById('aVisible1').checked=c.visible1!==false;
   document.getElementById('aIcon2').value=c.icon2||'🎓';
   document.getElementById('aTitle2').value=c.title2||'Prenotare una Masterclass';
   document.getElementById('aSub2').value=c.sub2||"Impara l'arte dei cocktail con i nostri esperti bartender";
-  document.getElementById('aVisible2').checked=c.visible2!==false;
-  document.querySelectorAll('.color-chip').forEach(ch=>{ch.classList.toggle('active',ch.dataset.color===bgColor);});
+  // highlight current bg
+  document.querySelectorAll('.color-chip').forEach(c=>{c.classList.toggle('active',c.dataset.color===bgColor);});
   document.getElementById('adminOverlay').classList.add('open');
 }
 
