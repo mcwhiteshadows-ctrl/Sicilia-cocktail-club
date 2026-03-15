@@ -139,7 +139,7 @@
         </div>
         <div class="admin-field">
           <span class="admin-label">Titolo principale</span>
-          <input class="admin-input" id="aTxtTitle" value="Cosa vuoi">
+          <input class="admin-input" id="aTxtTitle" value="Cosa vuoi fare ?">
         </div>
         <div class="admin-field">
           <span class="admin-label">Parola in corsivo (dopo il titolo)</span>
@@ -287,8 +287,7 @@ function checkPwd(){if(document.getElementById('pwdInput').value===ADMIN_PWD){do
 function openAdmin(){
   const c=JSON.parse(localStorage.getItem('scc_homepage')||'{}');
   document.getElementById('aTxtEyebrow').value=c.eyebrow||'Benvenuto';
-  document.getElementById('aTxtTitle').value=c.title||'Cosa vuoi';
-  document.getElementById('aTxtTitleEm').value=c.titleEm||'fare?';
+  document.getElementById('aTxtTitle').value=c.title||'Cosa vuoi fare ?';
   document.getElementById('aIcon1').value=c.icon1||'🍹';
   document.getElementById('aTitle1').value=c.title1||'Ordinare cocktail a domicilio';
   document.getElementById('aSub1').value=c.sub1||'Ricevi i tuoi cocktail preferiti direttamente a casa tua';
@@ -309,8 +308,7 @@ loadConfig();
 const translations = {
   it: {
     eyebrow: 'Benvenuto',
-    title: 'Cosa vuoi',
-    titleEm: 'fare?',
+    title: 'Cosa vuoi fare ? ',
     title1: 'Ordinare cocktail a domicilio',
     sub1: 'Ricevi i tuoi cocktail preferiti direttamente a casa tua',
     title2: 'Prenotare una Masterclass',
